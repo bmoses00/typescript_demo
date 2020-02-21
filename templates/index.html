@@ -1,0 +1,35 @@
+<html>
+     <head>
+          <title>Flask app</title>
+          <link rel="stylesheet" href="./static/css/style.css">
+     </head>
+     <body>
+          <h2> Typescript: </h2>
+
+          <b>1. Is a superset of JS</b> <br>
+          This means it incorporates all the features of JS, while adding its own <br> <br>
+
+          <b>2. Compiles into JS </b> <br>
+          A typescript file will compile into a plain JS file. <br> <br>
+
+          <h2> What features does typescript offer? </h2>
+          1. Its compiler allows you to catch errors at compile time rather than runtime <br>
+          2. It allows you to set types for variables and return values <br>
+
+          <!-- <canvas height = "400px" width = "400px" id = "slate" style = "border:1px solid;"> </canvas> <br> -->
+
+          <form action = '/compile'>
+          <textarea style = "height: 300px; width: 300px;" id = "html" placeholder = "HTML"></textarea>
+          <textarea style = "height: 300px; width: 300px;" name = "ts" placeholder = "Typescript"></textarea>
+          <textarea style = "height: 300px; width: 300px;" id =   "js" placeholder = "Javascript"></textarea>
+          <br>
+          <button type = "submit"> Compile </button>
+          <br>
+          <iframe height = "600px" width = "600px" id = "code"> </iframe>
+          <script>
+
+          document.getElementById("js").innerHTML = {{text|safe}};
+          </script>
+          <script src = "{{url_for('static', filename = 'script.js')}}"> </script>
+     </body>
+</html>
