@@ -4,7 +4,7 @@
           <link rel="stylesheet" href="./static/css/style.css">
      </head>
      <body>
-          <h2> Typescript: </h2>
+          <h1> Typescript: </h1>
 
           <b>1. Is a superset of JS</b> <br>
           This means it incorporates all the features of JS, while adding its own <br> <br>
@@ -12,20 +12,222 @@
           <b>2. Compiles into JS </b> <br>
           A typescript file will compile into a plain JS file. <br> <br>
 
-          For instance, if you have the following typescript file example.ts: <br>
-          <code>
-            var x: number = 15; <br>
-            var y: number = 25; <br>
-          </code>
-          <br>
-          If you compile into JS with tsc example.ts, it becomes: <br>
-          <code>
-            var x = 15; <br>
-            var y = 25; <br>
-          </code>
-          <h2> What features does typescript offer? </h2>
-          1. Its compiler allows you to catch errors at compile time rather than runtime <br>
-          2. It allows you to set types for variables and return values <br>
+          For instance, if you have the following typescript file example.ts:
+          <pre> <code>
+              var x:number = 15;
+          </code> </pre>
+          And compile with <code> tsc example.ts </code>, you would get an example.js file that looked like this:
+          <pre> <code>
+              var x = 15;
+          </code> </pre>
+          But if you tried to re-assign x to a different type like so:
+          <pre> <code>
+              var x:number = 15;
+              x = 'hello';
+          </code> </pre>
+          You would get the following compiler error:
+          <pre> <code>
+          example.ts:2:1 - error TS2322: Type '"hello"' is not assignable to type 'number'.
 
+          2 x = 'hello';
+            ~
+
+
+          Found 1 error.
+          </code> </pre>
+          Now let's take a look at a more complex example, for code to generate this:<br>
+          <canvas height = "400px" width = "400px" style = "border:1px solid" id = "slate"></canvas> <br> <br>
+          And here's the typescript behind it:
+          <pre> <code>
+              var canvas = document.getElementById("slate") as HTMLCanvasElement;
+              var ctx = canvas.getContext("2d");
+
+              var x:number = 200;
+              var y:number = 200;
+              var dx:number = 0;
+              var dy:number = 0;
+              <em class = "comment">
+              // changes velocity based on keyboard input
+              </em>
+              function move(e) {
+                  let speed_change = get_speed_change(x, y);
+                  if (e.key == "w") dy = -speed_change;
+                  if (e.key == "a") dx = -speed_change;
+                  if (e.key == "s") dy = speed_change;
+                  if (e.key == "d") dx = speed_change;
+                  ctx.fillRect(x, y, 40, 40);
+              }
+              <em class = "comment">
+              // gives less velocity change the further the square is from the center
+              </em>
+              function get_speed_change (x:number, y:number): number {
+                  return 10 - Math.sqrt(Math.abs(x-canvas.width/2) + Math.abs(y-canvas.height/2)) / 2
+              }
+
+              var animate = function (e) {
+                  <em class = "comment">
+                  // changes position based on velocity
+                  </em>
+                  x += dx;
+                  y += dy;
+                  <em class = "comment">
+                  // decreases velocity over time
+                  </em>
+                  dx *= .95;
+                  dy *= .95;
+                  <em class = "comment">
+                  // bounces off walls
+                  </em>
+                  if (x < 0 || x > canvas.width - 25)  dx = -dx;
+                  if (y < 0 || y > canvas.height - 25) dy = -dy;
+                  <em class = "comment">
+                  // drawing square
+                  </em>
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  ctx.fillRect(x, y, 25, 25);
+
+                  window.requestAnimationFrame(animate);
+              };
+
+
+              window.addEventListener('load', animate);
+              window.addEventListener('keydown', move);
+          </code> </pre>
+          <br>
+          If you compile into JS with <code>tsc example.ts</code>, it becomes: <br>
+          <pre> <code>
+              var canvas = document.getElementById("slate");
+              var ctx = canvas.getContext("2d");
+              var x = 200;
+              var y = 200;
+              var dx = 0;
+              var dy = 0;
+              <em class = "comment">
+              // changes velocity based on keyboard input
+              </em>
+              function move(e) {
+                  var speed_change = get_speed_change(x, y);
+                  if (e.key == "w")
+                      dy = -speed_change;
+                  if (e.key == "a")
+                      dx = -speed_change;
+                  if (e.key == "s")
+                      dy = speed_change;
+                  if (e.key == "d")
+                      dx = speed_change;
+                  ctx.fillRect(x, y, 40, 40);
+              }
+              <em class = "comment">
+              // gives less velocity change the further the square is from the center
+              </em>
+              function get_speed_change(x, y) {
+                  return 10 - Math.sqrt(Math.abs(x - canvas.width / 2) + Math.abs(y - canvas.height / 2)) / 2;
+              }
+              var animate = function (e) {
+                  <em class = "comment">
+                  // changes position based on velocity
+                  </em>
+                  x += dx;
+                  y += dy;
+                  <em class = "comment">
+                  // decreases velocity over time
+                  </em>
+                  dx *= .95;
+                  dy *= .95;
+                  <em class = "comment">
+                  // bounces off walls
+                  </em>
+                  if (x < 0 || x > canvas.width - 25)
+                      dx = -dx;
+                  if (y < 0 || y > canvas.height - 25)
+                      dy = -dy;
+                  <em class = "comment">
+                  // drawing square
+                  </em>
+                  ctx.clearRect(0, 0, canvas.width, canvas.height);
+                  ctx.fillRect(x, y, 25, 25);
+                  window.requestAnimationFrame(animate);
+              };
+              window.addEventListener('load', animate);
+              window.addEventListener('keydown', move);
+          </code> </pre>
+
+          One benefit of the compiler is that it allows us to catch errors at compile-time <br>
+          rather than at runtime. If we, say, forget an arg to fillRect(), <br>
+          the compiler will thorw an error like so:
+          <pre> <code>
+              static/script.ts:18:9 - error TS2554: Expected 4 arguments, but got 3.
+
+              18     ctx.fillRect(x, y, 25);
+                         ~~~~~~~~~~~~~~~~~~
+
+                ../../../../../usr/local/lib/node_modules/typescript/lib/lib.dom.d.ts:3478:47
+                  3478     fillRect(x: number, y: number, w: number, h: number): void;
+                                                                     ~~~~~~~~~
+                  An argument for 'h' was not provided.
+
+
+              Found 1 error.
+          </code> </pre>
+          Whereas in JS, we would see something that looked like this: <br> <br>
+          <canvas height = "400px" width = "400px" style = "border:1px solid" id = "error"></canvas><br><br>
+
+          There are also other benefits to typescript's typing. When trying
+          <pre> <code>
+              [] + []
+              [] + {}
+              {} + []
+              {} + {}
+          </code> </pre>
+          Typescript's compiler will throw the following error messages:
+          <pre> <code>
+              example.ts:1:13 - error TS2365: Operator '+' cannot be applied to types 'undefined[]' and 'undefined[]'.
+
+              1 console.log([] + []);
+                          ~~~~~~~
+
+              example.ts:2:13 - error TS2365: Operator '+' cannot be applied to types 'undefined[]' and '{}'.
+
+              2 console.log([] + {});
+                          ~~~~~~~
+
+              example.ts:3:13 - error TS2365: Operator '+' cannot be applied to types '{}' and 'undefined[]'.
+
+              3 console.log({} + []);
+                          ~~~~~~~
+
+              example.ts:4:13 - error TS2365: Operator '+' cannot be applied to types '{}' and '{}'.
+
+              4 console.log({} + {});
+                          ~~~~~~~
+
+
+              Found 4 errors.
+          </code> </pre> <br> <br>
+
+          One of the best things about typescript is that its typing is completely optional. <br>
+          You can give any variable the 'any' type, and it will not give a compiler error for <br>
+          changing types like so: <br>
+          <pre> <code>
+              var x:any = 15;
+              var x = 'hello'
+          </code> </pre>
+          Another great thing about typescript is that it can infer types. If you had the following: <br>
+          <pre> <code>
+              var x = 15;
+              var x = 'hello'
+          </code> </pre>
+          It would throw the same compiler error as if you had explicitly typed <code>x</code> to be a number. <br> <br>
+
+          For large projects, typescript's compiler provides a lot of utility because it allows you to <br>
+          combine many files into one. <br>
+
+          Now let's talk about classes and what typescript does for them, like readonly properties and explicit property declaration. <br> <br>
+
+
+          This also means that you can sometimes leave out the return types of functions. <br> <br>
+          Thanks for listening! If you did listen, that is. Navigate to <a href = "http://www.typescriptlang.org/">http://www.typescriptlang.org/</a><br>
+          for more info and also to learn how to download typescript.
+          <script src = "{{ url_for('static', filename='script.js') }}"> </script>
      </body>
 </html>
