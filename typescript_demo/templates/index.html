@@ -1,198 +1,324 @@
 <html>
      <head>
-          <title>Flask app</title>
-          <link rel="stylesheet" href="./static/css/style.css">
+          <title>Typescript</title>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          <link rel="stylesheet"
+                href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
      </head>
-     <body>
-       ADD HLJS
-       <h1> Typescript </h1> <Br> <br> <br>
+     <body class = "container">
+       <div class = "row">
+         <!-- <nav class="sidenav" style = "position:fixed; width: 150px; left: 0; overflow-x: hidden"> -->
+
+         <nav class="col-2 sticky-sidebar">
+
+           <div class="sticky-top">
+             <ul class="nav flex-column">
+               <li class="nav-item">
+                 <a class="nav-link active" href="#typescript">
+                   <b> What is typescript? </b>
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#typing">
+                   Typing
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#enums">
+                   Enums
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#type_inferencing">
+                   Type Inferencing
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#type_optionality">
+                   Type Optionality
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#generics">
+                   Generics
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#classes">
+                   Classes
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#compiler_options">
+                   Compiler Options
+                 </a>
+               </li>
+               <li class="nav-item">
+                 <a class="nav-link active" href="#resources">
+                   Resources
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </nav>
+
+       <div class = "col-9">
 
 
-       <h2> Typescript </h2> <hr>
-       <b>1. Is a superset of JS</b> <br>
-       This means it incorporates all the features of JS, while adding its own <br> <br>
+         <h1 id = "typescript"> Typescript </h1>
+         <b>1. Is a superset of JS</b> <br>
+         This means it incorporates all the features of JS, while adding its own <br> <br>
 
-       <b>2. Compiles into JS </b> <br>
-       A typescript file will compile into a plain JS file. <br> <br>
+         <b>2. Compiles into JS </b> <br>
+         A typescript file will compile into a plain JS file. <br> <br>
 
-       <h2> Typing </h2> <hr>
-        One of the primary features of typescript is that it is: <br> <br>
+         <h2 id = "typing"> Typing </h2> <hr>
+          One of the primary features of typescript is that it is: <br> <br>
 
-        0. <b>strongly typed</b>: errors are thrown if you try to perform an implicit conversion <br>
-        1. <b>statically typed</b>: typechecks are done at compile-time, rather than runtime <br> <br> <br>
+          0. <b>strongly typed</b>: errors are thrown if you try to perform an implicit conversion <br>
+          1. <b>statically typed</b>: typechecks are done at compile-time, rather than runtime <br> <br> <br>
 
-        Let's look at an example of what this looks like. If you have the following typescript file <code>example.ts</code>:
-        <pre> <code>
-            var x:number = 15;
-        </code> </pre>
-        And compile with <code> tsc example.ts </code>, you would get an <code>example.js</code> file that looked like this:
-        <pre> <code>
-            var x = 15;
-        </code> </pre>
-        But if you tried to re-assign x to a different type like so:
-        <pre> <code>
-            var x:number = 15;
-            x = 'hello';
-        </code> </pre>
-        You would get the following compiler error:
-        <pre> <code>
-        example.ts:2:1 - error TS2322: Type '"hello"' is not assignable to type 'number'.
-
-        2 x = 'hello';
-          ~
-
-
-        Found 1 error.
-      </code> </pre> <br>
-
-      Note that the error occured in the second case because we tried to convert from a number to a string. <br> <br>
-      Function parameters and return values are also typed in typescript. So if we have the following:
-
-      <pre> <code>
-          var x:number = 15;
-          var y:string = '25';
-
-          function distance_from_origin(x: number, y:number) : number {
-            return Math.sqrt(x*x + y*y);
-          }
-
-          distance_from_origin(x, y);
-      </code> </pre> <br>
-
-      We would get a compiler error for attempting to call this function with paramenter <code>y</code> being a string. <br> <BR>
-
-      The basic types in typescript are:
-      <ul>
-      <li>number</li>
-      <li>boolean</li>
-      <li>string</li> <br>
-    </ul> Note two things: <br>
-      One, the lack of ints or doubles: there is only a single number type. <br>
-      Also, note that these types exist in JS too, but conversions are so fluid that it can be easy to forget <br>
-      that variables in base JS do have types.
-
-
-
-       <h3> Benefits of typing </h3>
-       - catch errors earlier and easier <br>
-       - self documenting <br>
-       - easy to re-factor (change insides of function without changing external behavior) <br>
-
-       <h3> Editor support </h3> <hr>
-       Most editors have added support for typescript which includes, among other things:
-       <ul>
-       <li>automatic compilation on save</li>
-       <li>type error highlighting</li>
-       <li>autocomplete</li>
-       <li>function headers and variable types on scroll-over</li>
-     </ul> <br>
-       Click this link to see a list of compiler add-ons for the most popular editors. <br>
-
-
-       <h2> Enums </h2> <hr>
-       As I stated above, typescript is a superscript of JS, meaning it has some features that JS does <br>
-       not support. One of these is enums. <br> <br>
-
-       Enums are a way to avoid 'magic numbers' in your programs. Here's an example:
-
-       <pre> <code>
-       Enum shapes {
-         square = 0;
-         circle = 1;
-         rectangle = 2;
-       }
-     </pre> </code> <br>
-
-       If we then tried console.log(shapes.square), we would get 0. The enum makes it so that <br>
-       shapes.square has a value of 0. So in our code we could write <br>
-       something like
-       <pre> <code>
-         if (input == shapes.square) {
-           // do stuff
-         }
-       </pre> </code>
-       Where shapes.square is synonymous with 0. However, this is far easier to read and understand than
-       <pre> <code>
-         if (input == 0) {
-           // do stuff
-         }
-       </pre> </code>
-
-       <h2> Type Inferencing </h2> <hr>
-       While typescript's typing system is great, it can be a bit cumbersome at times. This is why <br>
-       typescript includes type inferecing! Let's modify the prior example a bit:
-
-       <pre> <code>
-
-       </pre> </code>
-       <h2> Type Optional </h2> <hr>
-       <h2> Generics </h2> <hr>
-       <h2> Classes </h2> <hr>
-       <h2> Benefits of compiler and tsconfig.json </h2> <hr>
-
-
-
-
-
-          One benefit of the compiler is that it allows us to catch errors at compile-time <br>
-          rather than at runtime.
-
-          There are also other benefits to typescript's typing. When trying
+          Let's look at an example of what this looks like. If you have the following typescript file <code>example.ts</code>:
           <pre> <code>
-              [] + []
-              [] + {}
-              {} + []
-              {} + {}
+              var x:number = 15;
           </code> </pre>
-          Typescript's compiler will throw the following error messages:
-          <pre> <code>
-              example.ts:1:13 - error TS2365: Operator '+' cannot be applied to types 'undefined[]' and 'undefined[]'.
-
-              1 console.log([] + []);
-                          ~~~~~~~
-
-              example.ts:2:13 - error TS2365: Operator '+' cannot be applied to types 'undefined[]' and '{}'.
-
-              2 console.log([] + {});
-                          ~~~~~~~
-
-              example.ts:3:13 - error TS2365: Operator '+' cannot be applied to types '{}' and 'undefined[]'.
-
-              3 console.log({} + []);
-                          ~~~~~~~
-
-              example.ts:4:13 - error TS2365: Operator '+' cannot be applied to types '{}' and '{}'.
-
-              4 console.log({} + {});
-                          ~~~~~~~
-
-
-              Found 4 errors.
-          </code> </pre> <br> <br>
-
-          One of the best things about typescript is that its typing is completely optional. <br>
-          You can give any variable the 'any' type, and it will not give a compiler error for <br>
-          changing types like so: <br>
-          <pre> <code>
-              var x:any = 15;
-              var x = 'hello'
-          </code> </pre>
-          Another great thing about typescript is that it can infer types. If you had the following: <br>
+          And compile with <code> tsc example.ts </code>, you would get an <code>example.js</code> file that looked like this:
           <pre> <code>
               var x = 15;
-              var x = 'hello'
           </code> </pre>
-          It would throw the same compiler error as if you had explicitly typed <code>x</code> to be a number. <br> <br>
+          But if you tried to re-assign x to a different type like so:
+          <pre> <code>
+              var x:number = 15;
+              x = 'hello';
+          </code> </pre>
+          You would get the following compiler error:
+          <pre> <code>
+          example.ts:2:1 - error TS2322: Type '"hello"' is not assignable to type 'number'.
 
-          For large projects, typescript's compiler provides a lot of utility because it allows you to <br>
-          combine many files into one. <br>
-
-          Now let's talk about classes and what typescript does for them, like readonly properties and explicit property declaration. <br> <br>
+          2 x = 'hello';
+            ~
 
 
-          This also means that you can sometimes leave out the return types of functions. <br> <br>
-          Thanks for listening! If you did listen, that is. Navigate to <a href = "http://www.typescriptlang.org/">http://www.typescriptlang.org/</a><br>
-          for more info and also to learn how to download typescript.
-          <script src = "{{ url_for('static', filename='script.js') }}"> </script>
+          Found 1 error.
+        </code> </pre> <br>
+
+        Note that the error occured in the second case because we tried to convert from a number to a string. <br> <br>
+        Function parameters and return values are also typed in typescript. So if we have the following:
+
+        <pre> <code>
+            var x:number = 15;
+            var y:string = '25';
+                                                               // : number shows function return type
+            function distance_from_origin(x: number, y:number) : number {
+              return Math.sqrt(x*x + y*y);
+            }
+
+            distance_from_origin(x, y);
+        </code> </pre> <br>
+
+        We would get a compiler error for attempting to call this function with paramenter <code>y</code> being a string. <br> <BR>
+
+        The basic types in typescript are:
+        <ul>
+        <li>number</li>
+        <li>boolean</li>
+        <li>string</li> <br>
+      </ul> Note two things: <br>
+        One, the lack of ints or doubles: there is only a single number type. <br>
+        Also, note that these types exist in JS too, but conversions are so fluid that it can be easy to forget <br>
+        that variables in base JS do have types.
+
+
+
+         <h3> Benefits of typing </h3>
+         - catch errors earlier and easier <br>
+         - self documenting <br>
+         - easy to re-factor (change insides of function without changing external behavior) <br>
+
+         <h3> Editor support </h3> <hr>
+         Most editors have added support for typescript which includes, among other things:
+         <ul>
+         <li>automatic compilation on save</li>
+         <li>type error highlighting</li>
+         <li>autocomplete</li>
+         <li>function headers and variable types on scroll-over</li>
+       </ul> <br>
+         Click <a href = "#editors"> here</a> to see a list of compiler add-ons for the most popular editors. <br>
+
+
+         <h2 id = "enums"> Enums </h2> <hr>
+         As I stated above, typescript is a superscript of JS, meaning it has some features that JS does <br>
+         not support. One of these is enums. <br> <br>
+
+         Enums are a way to avoid 'magic numbers' in your programs. Here's an example:
+
+         <pre> <code>
+         Enum shapes {
+           square = 0;
+           circle = 1;
+           rectangle = 2;
+         }
+       </pre> </code> <br>
+
+         If we then tried console.log(shapes.square), we would get 0. The enum makes it so that <br>
+         shapes.square has a value of 0. So in our code we could write <br>
+         something like
+         <pre> <code>
+           if (input == shapes.square) {
+             // do stuff
+           }
+         </pre> </code>
+         Where shapes.square is synonymous with 0. However, this is far easier to read and understand than
+         <pre> <code>
+           if (input == 0) {
+             // do stuff
+           }
+         </pre> </code>
+
+         <h2 id = "type_inferencing"> Type Inferencing </h2> <hr>
+         While typescript's typing system is great, it can be a bit cumbersome at times. This is why <br>
+         typescript includes type inferecing! Essentially, typescript's compiler is smart enough to <br>
+         be able to assume what types you want in some circumstances. Let's modify the prior example a bit:
+
+         <pre> <code>
+           var x: = 15;
+           var y: '25';
+           function distance_from_origin(x, y) : number {
+             return Math.sqrt(x*x + y*y);
+           }
+
+           distance_from_origin(x, y);
+         </pre> </code>
+
+         This will still give an error, because typescript will realize that the variable <code>y</code> is of type
+         string, and the parameter <code>y</code> should be of type number because it is being multiplied in the function. <br> <br>
+
+         <h2 id = "type_optionality"> Type Optionality </h2> <hr>
+         Typescript's types are also completely optional. We can opt out of types by setting a variable to type any, like so:
+
+         <pre> <code>
+           var x:any = 15;
+           x = 'hello';
+         </pre> </code> <br>
+
+         This will not cause a compiler error, because variables of type any can be converted to any other basic type.
+         <h2 id = "generics"> Generics </h2> <hr>
+         Another really useful feature that typescript has is generics, which combines the flexibility of 'any' with <br>
+         typescript's strong typing. Essentially, here's how it works: you can set a type to be anything you want initially, <br>
+         but after that, an error will be thrown if you try to change it. Let's look at an example. <br>
+
+         <pre> <code>
+           class Pair <T, U> {
+             constructor(first_el:T, second_el:U) {
+                   this.first_el = first_el;
+                   this.second_el = second_el;
+             }
+             first_el:T;
+             second_el:U;
+           }
+
+           let point = new Pair<number, number>(25, 15);
+           let data = new Pair<number, string>(20, "good");
+
+           point.first_el = "hello"
+           data.second_el = 10
+
+         </pre> </code> <br>
+
+         Here we have a simple class Pair with two elements, first_el and second_el. The general <Br>
+         syntax should be familiar from Java. As you can see, first_el is of type T, and second_el of type U. <br>
+         This means that they are not initially constrained to any type, they can be initialized as a number <Br>
+         or a string. But once initialized to a type, the type cannot be changed: both of the changes at the <br>
+         bottom would throw a compiler error. <br>
+
+
+
+         <h2 id = "classes"> Classes </h2> <hr>
+
+         Typescript also comes with some great features unique to classes. The first of these is <br>
+         explicit property declaration which you saw above. Let's redo the above example without generics <br>
+         for simplicity:
+         <pre> <code>
+           class Point {
+
+             private x:number;
+             private y:number;
+             readonly label:string;
+
+             constructor(x:number, y:number, label:string) {
+                   this.x = x;
+                   this.y = y;
+                   this.label = label;
+             }
+           }
+
+           let p0 = new Point(2, 6, "p0");
+
+         </pre> </code> <br>
+         Here, we are able to explicitly declare <code>x</code> and <code>y</code> as fields, which has <br>
+         limited support in base JS. Typescript also supports private properties, which cannot be modified <br>
+         directly (they can only be modified through class methods) and readonly properties, which cannot <br>
+         be changed once set.
+
+         <h2 id = "compiler_options"> tsconfig.json </h2> <hr>
+         Lastly, let's discuss the tsconfig.json file. This file lets you customize your compilation options. <br>
+         Here's an example tsconfig.json:
+
+         <pre> <code>
+           {
+             "compileOnSave": true,
+             "compilerOptions": {
+               "noImplicitAny":true,
+               "outFile": "build.js"
+               },
+
+             "files": [
+               "Planet.ts",
+               "UserOfPlanet.ts",
+             ]
+           }
+         </pre> </code> <br>
+
+         There's a lot to unpack here, so let's go one by one. <br> <br>
+
+         <b>compileOnSave</b>: this option lets your editor know that you want to recompile <br>
+         your typescript project every time you save. <br> <br>
+
+         <b>files</b>: one of the best features of typescript is that you can compile <br>
+         multiple <code>.ts</code> files into a single </code>.js</code> file. These files <br>
+         indicate which files you want to compile <br> <br>
+
+         <b>outFile</b>: this is what the output <code>.js</code> file will be called. <br><br>
+
+         <b>noImplicitAny</b>: tsconfig.json contains a huge number of options for making <br>
+         your code stricter, this is just one of them. This option in particular will throw a <br>
+         compiler error if, when using type inferencing, the compiler infers one of the type to <br>
+         be <code>any</code>. Here's an exmaple:<br><br>
+
+         <pre> <code>
+           function log(data) {
+             console.log(data)
+           }
+         </pre> </code>
+
+         Here, data has a type of <code>any</code> because we didn't set it, which would cause an error. <br> <br>
+
+         There are tons of tsconfig.json options. For a full list, click <a href = "https://www.typescriptlang.org/v2/en/tsconfig">here</a>.
+         <h2 id = "resources"> Resources </h2> <hr>
+
+          <div id = "editors">
+            haha SIKE! If you're seeing this, it means I forgot to add them...
+          </div>
+
+            Navigate to <a href = "http://www.typescriptlang.org/">http://www.typescriptlang.org/</a><br>
+            for more info and also to learn how to download typescript.
+
+          <h2> Credits </h2> <hr>
+
+          Credits to <a href = "https://highlightjs.org/">highlightjs</a>, a free code js framework, for code highlighting.
+          </div>
+        </div>
      </body>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
 </html>
